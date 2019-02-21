@@ -1,0 +1,19 @@
+{
+  "name": "markjson",
+  "version": "1.0.0",
+  "description": "Markdown to JSON",
+  "main": "index.js",
+  "repository": "git@github.com:kimberlycoy/markjson.git",
+  "author": "Kimberly Coy <kimberlycoy@mybluetub.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test"
+  },
+  "dependencies": {
+    "marked": "^0.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.0"
+  }
+}
