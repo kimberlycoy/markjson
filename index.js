@@ -39,8 +39,11 @@ class Current {
     this.json[this.heading] = {};
   }
 
-  addContent(text) {
-    this.json[this.heading].content = text;
+  addParagraph(text) {
+    let headingObj = this.json[this.heading];
+    headingObj.content
+      ? (headingObj.content += "\n\n" + text)
+      : (headingObj.content = text);
   }
 
   addCode(element) {
@@ -80,7 +83,7 @@ module.exports = md => {
 
       current.addHeading(element.text);
     } else if (element.isParagraph()) {
-      current.addContent(element.text);
+      current.addParagraph(element.text);
     } else if (element.isCode()) {
       current.addCode(element);
     }

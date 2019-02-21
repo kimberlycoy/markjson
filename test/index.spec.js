@@ -2,9 +2,8 @@ const assert = require("assert");
 const fs = require("fs");
 const markjson = require("../index.js");
 
-describe("index", function() {
+describe("json", function() {
   let json;
-  let rootKey = "Lorem Ipsum";
 
   before(function() {
     let md = fs.readFileSync(__dirname + "/loremipsum.md", "utf8");
@@ -15,62 +14,106 @@ describe("index", function() {
     assert.ok(json != null && json != undefined && json != {});
   });
 
-  it("should have root key", function() {
-    assert.equal(Object.keys(json)[0], rootKey);
-  });
+  describe("Lorem Ipsum", function() {
+    let loremIpsum;
+    before(function() {
+      loremIpsum = json["Lorem Ipsum"];
+    });
 
-  it("should have A content", () => {
-    assert.equal(typeof json[rootKey].A.content, "string");
-  });
+    it("should have a title", () => {
+      assert.equal(loremIpsum.title, "Lorem Ipsum");
+    });
 
-  it("should have A1 content", () => {
-    assert.equal(typeof json[rootKey].A.A1.content, "string");
-  });
+    it("should have a description", () => {
+      assert.equal(
+        loremIpsum.description,
+        "ultrices posuere cubilia Curae; Proin pulvinar pretium"
+      );
+    });
 
-  it("should have A1.with", () => {
-    assert.equal(json[rootKey].A.A1.with, "some meta data");
-  });
+    it("should have a generator", () => {
+      assert.equal(loremIpsum.generator, "https://www.lipsum.com");
+    });
 
-  it("should have A1.author", () => {
-    assert.equal(json[rootKey].A.A1.author, "me");
-  });
+    describe("A", function() {
+      let A;
+      before(function() {
+        A = loremIpsum.A;
+      });
 
-  it("should have A1A content", () => {
-    assert.equal(typeof json[rootKey].A.A1.A1A.content, "string");
-  });
+      it("should have content", () => {
+        assert.equal(typeof A.content, "string");
+      });
 
-  it("should have A1A.level", () => {
-    assert.strictEqual(json[rootKey].A.A1.A1A.level, 2);
-  });
+      describe("content", function() {
+        let start = "Lorem ipsum dolor sit amet";
+        it("should start with '" + start + "'", function() {
+          assert.ok(A.content.startsWith(start));
+        });
 
-  it("should have A1A.subject", () => {
-    assert.equal(json[rootKey].A.A1.A1A.subject, "Object of Objects");
-  });
+        let included = "Integer accumsan dui non luctus accumsan.";
+        it("should include '" + included + "'", function() {
+          assert.ok(A.content.includes(included, 5));
+        });
 
-  it("should have A1A.description", () => {
-    assert.equal(json[rootKey].A.A1.A1A.description, "It's dark down here.");
-  });
+        it("should maintain spacing between paragraphs", function() {
+          assert.ok(A.content.includes("\n\n" + included, 5));
+        });
+      });
 
-  it("should have A2 content", () => {
-    assert.equal(typeof json[rootKey].A.A2.content, "string");
-  });
+      describe("A1", function() {
+        let A1;
 
-  it("should have B content", () => {
-    assert.equal(typeof json[rootKey].B.content, "string");
-  });
+        before(function() {
+          A1 = A.A1;
+        });
 
-  it("should have root.title", () => {
-    assert.equal(json[rootKey].title, rootKey);
-  });
+        it("should have content", () => {
+          assert.equal(typeof A1.content, "string");
+        });
 
-  it("should have root.description", () => {
-    assert.equal(
-      json[rootKey].description,
-      "ultrices posuere cubilia Curae; Proin pulvinar pretium"
-    );
-  });
+        it("should have a with", () => {
+          assert.equal(A1.with, "some meta data");
+        });
 
-  it("should have root.generator", () => {
-    assert.equal(json[rootKey].generator, "https://www.lipsum.com");
+        it("should have an author", () => {
+          assert.equal(A1.author, "me");
+        });
+
+        describe("A1A", function() {
+          let A1A;
+
+          before(function() {
+            A1A = A1.A1A;
+          });
+
+          it("should have content", () => {
+            assert.equal(typeof A1A.content, "string");
+          });
+
+          it("should have a level", () => {
+            assert.strictEqual(A1A.level, 2);
+          });
+
+          it("should have a subject", () => {
+            assert.equal(A1A.subject, "Object of Objects");
+          });
+
+          it("should have a description", () => {
+            assert.equal(A1A.description, "It's dark down here.");
+          });
+        });
+      });
+
+      it("should have A2 content", () => {
+        assert.equal(typeof A.A2.content, "string");
+      });
+    });
+
+    describe("B", function() {
+      it("should have content", () => {
+        assert.equal(typeof loremIpsum.B.content, "string");
+      });
+    });
   });
 });
