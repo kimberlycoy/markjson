@@ -2,7 +2,7 @@
   "name": "markjson",
   "version": "1.0.0",
   "description": "Markdown to JSON",
-  "main": "index.js",
+  "main": "markjson.js",
   "repository": "git@github.com:kimberlycoy/markjson.git",
   "author": "Kimberly Coy <kimberlycoy@mybluetub.com>",
   "license": "MIT",

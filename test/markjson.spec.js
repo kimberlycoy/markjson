@@ -1,6 +1,6 @@
 const assert = require("assert");
 const fs = require("fs");
-const markjson = require("../index.js");
+const markjson = require("../markjson.js");
 
 describe("json", function() {
   let json;
@@ -41,7 +41,7 @@ describe("json", function() {
         A = loremIpsum.A;
       });
 
-      it("should have content", () => {
+      it("should have content", function() {
         assert.equal(typeof A.content, "string");
       });
 
@@ -114,6 +114,12 @@ describe("json", function() {
       it("should have content", () => {
         assert.equal(typeof loremIpsum.B.content, "string");
       });
+    });
+  });
+
+  describe("Lorem Ipsum II", function() {
+    it("should have content", function() {
+      assert.equal(typeof json["Lorem Ipsum II"].content, "string");
     });
   });
 });
