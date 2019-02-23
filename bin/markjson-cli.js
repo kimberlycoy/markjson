@@ -7,11 +7,12 @@ const markjson = require("../lib/markjson");
 
 function parseInput(args) {
   let argv = minimist(args || process.argv.slice(2), {
-    boolean: ["c", "o", "f"],
+    boolean: ["c", "o", "f", "h"],
     alias: {
       format: "f",
       output: "o",
-      concat: "c"
+      concat: "c",
+      help: "h"
     }
   });
 
@@ -42,8 +43,7 @@ function outputJson({ json, argv, filename }) {
   }
 }
 
-function main(args) {
-  let argv = parseInput(args);
+function parse(argv) {
   let all = {};
   argv._.forEach(function(filename) {
     try {
@@ -62,6 +62,24 @@ function main(args) {
   if (argv.concat) {
     all = formatJson({ json: all, argv: argv });
     outputJson({ json: all, argv: argv, filename: "output" });
+  }
+}
+
+function main(args) {
+  let argv = parseInput(args);
+
+  if (argv._.length === 0 || argv.help) {
+    console.log(`
+markjson [markdown...]
+
+--help, -h       This message.
+--format, -f     Format the json. Defaults to 2 spaces.
+--concat, -c     Concat the json of each file into one object. 
+--output, -o     Write the json to [filename.md].json. Or, output.json 
+                 if multiple markdown files. 
+    `);
+  } else {
+    parse(argv);
   }
 }
 
