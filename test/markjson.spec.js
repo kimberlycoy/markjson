@@ -1,6 +1,6 @@
 const assert = require("assert");
 const fs = require("fs");
-const markjson = require("../markjson.js");
+const markjson = require("../lib/markjson.js");
 
 describe("json", function() {
   let json;

@@ -2,8 +2,10 @@
   "name": "markjson",
   "version": "1.0.0",
   "description": "Markdown to JSON",
-  "main": "markjson.js",
-  "bin": "bin/markjson.js"
+  "main": "lib/markjson.js",
+  "bin": {
+    "markjson": "bin/markjson.js"
+  },
   "repository": "git@github.com:kimberlycoy/markjson.git",
   "author": "Kimberly Coy <kimberlycoy@mybluetub.com>",
   "license": "MIT",
