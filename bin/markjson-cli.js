@@ -70,13 +70,13 @@ function main(args) {
 
   if (argv._.length === 0 || argv.help) {
     console.log(`
-markjson [markdown...]
+markjson [file.md...]
 
 --help, -h       This message.
 --format, -f     Format the json. Defaults to 2 spaces.
 --concat, -c     Concat the json of each file into one object. 
---output, -o     Write the json to [filename.md].json. Or, output.json 
-                 if multiple markdown files. 
+--output, -o     Write the json to [filename.md].json. Or, 
+                 output.json if multiple markdown files.
     `);
   } else {
     parse(argv);

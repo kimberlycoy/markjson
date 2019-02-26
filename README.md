@@ -13,9 +13,25 @@ npm install https://github.com/kimberlycoy/markjson.git
 ## Usage
 
 ```js
+// node
 const markjson = require("markjson");
 let md = "# Some Markdown ...";
 let json = markjson(md);
+```
+
+```bash
+# cli
+$ bin/markjson 
+
+markjson [file.md...]
+
+--help, -h       This message.
+--format, -f     Format the json. Defaults to 2 spaces.
+--concat, -c     Concat the json of each file into one object. 
+--output, -o     Write the json to [filename.md].json. Or, 
+                 output.json if multiple markdown files.
+    
+
 ```
 
 ## Example
