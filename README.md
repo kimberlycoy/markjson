@@ -36,7 +36,7 @@ markjson [file.md...]
 
 ## Examples
 
-This ([example.md])
+This ([example.md](example.md))
 
     # Lorem Ipsum
 
@@ -63,7 +63,7 @@ This ([example.md])
 
     Cras efficitur tempor tincidunt.
 
-becomes ([example.md.json])
+becomes ([example.md.json](example.md.json))
 
 ```json
 {
