@@ -45,7 +45,6 @@ function writeJson({ json, argv, filename }) {
 }
 
 function parse(argv) {
-  console.log("argv:", argv);
   let all = {};
   argv._.forEach(function(filename) {
     try {
