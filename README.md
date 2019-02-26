@@ -21,29 +21,28 @@ let json = markjson(md);
 
 ```bash
 # cli
-$ bin/markjson 
+$ bin/markjson
 
 markjson [file.md...]
 
 --help, -h       This message.
 --format, -f     Format the json. Defaults to 2 spaces.
---concat, -c     Concat the json of each file into one object. 
---output, -o     Write the json to [filename.md].json. Or, 
+--concat, -c     Concat the json of each file into one object.
+--output, -o     Write the json to [filename.md].json. Or,
                  output.json if multiple markdown files.
-    
+
 
 ```
 
-## Example
+## Examples
 
-This
+This ([example.md])
 
     # Lorem Ipsum
 
     ```
     title: Lorem Ipsum
     description: ultrices posuere cubilia Curae
-    generator: https://www.lipsum.com
     ```
 
     ## A
@@ -55,11 +54,16 @@ This
     ```
     level: 2
     description: It's dark down here.
+    alt: ["Aone", 1]
     ```
+
+    - Sed
+    - Quis
+    - Eget
 
     Cras efficitur tempor tincidunt.
 
-becomes
+becomes ([example.md.json])
 
 ```json
 {
@@ -72,9 +76,40 @@ becomes
             "A1": {
                 "level": 2,
                 "description": "It's dark down here.",
+                "alt": ["Aone", 1],
+                "list": ["Sed", "Quis", "Eget"],
                 "content": "Cras efficitur tempor tincidunt."
             }
         }
     }
+}
+```
+
+### Code
+
+with `property: value` becomes
+
+```
+{
+    header:
+    {
+      property: value,
+      ...
+    }
+}
+```
+
+where value is a string, number, or array (if orig value starts with "[")
+
+### Lists
+
+(ordered or otherwise) become
+
+```
+{
+  header:
+  {
+    list: [ value, value, ... ],
+  }
 }
 ```

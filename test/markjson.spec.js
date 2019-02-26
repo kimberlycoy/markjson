@@ -20,19 +20,31 @@ describe("json", function() {
       loremIpsum = json["Lorem Ipsum"];
     });
 
-    it("should have a title", () => {
-      assert.equal(loremIpsum.title, "Lorem Ipsum");
+    describe("code", function() {
+      it("should have a title", function() {
+        assert.equal(loremIpsum.title, "Lorem Ipsum");
+      });
+
+      it("should have a description", function() {
+        assert.equal(
+          loremIpsum.description,
+          "ultrices posuere cubilia Curae; Proin pulvinar pretium"
+        );
+      });
+
+      it("should have a generator", function() {
+        assert.equal(loremIpsum.generator, "https://www.lipsum.com");
+      });
+
+      it("should have an array", function() {
+        assert.deepEqual(loremIpsum.array, ["one", 2]);
+      });
     });
 
-    it("should have a description", () => {
-      assert.equal(
-        loremIpsum.description,
-        "ultrices posuere cubilia Curae; Proin pulvinar pretium"
-      );
-    });
-
-    it("should have a generator", () => {
-      assert.equal(loremIpsum.generator, "https://www.lipsum.com");
+    describe("list", function() {
+      it("should have a list", function() {
+        assert.deepEqual(loremIpsum.list, ["LI-1", "LI-2"]);
+      });
     });
 
     describe("A", function() {
@@ -61,6 +73,12 @@ describe("json", function() {
         });
       });
 
+      describe("Alist", function() {
+        it("should have a list", function() {
+          assert.deepEqual(A.Alist.list, ["Ordered A-1", "Ordered A-2"]);
+        });
+      });
+
       describe("A1", function() {
         let A1;
 
@@ -72,12 +90,14 @@ describe("json", function() {
           assert.equal(typeof A1.content, "string");
         });
 
-        it("should have a with", () => {
-          assert.equal(A1.with, "some meta data");
-        });
+        describe("code", function() {
+          it("should have a with", () => {
+            assert.equal(A1.with, "some meta data");
+          });
 
-        it("should have an author", () => {
-          assert.equal(A1.author, "me");
+          it("should have an author", () => {
+            assert.equal(A1.author, "me");
+          });
         });
 
         describe("A1A", function() {
@@ -91,22 +111,26 @@ describe("json", function() {
             assert.equal(typeof A1A.content, "string");
           });
 
-          it("should have a level", () => {
-            assert.strictEqual(A1A.level, 2);
-          });
+          describe("code", function() {
+            it("should have a level", () => {
+              assert.strictEqual(A1A.level, 2);
+            });
 
-          it("should have a subject", () => {
-            assert.equal(A1A.subject, "Object of Objects");
-          });
+            it("should have a subject", () => {
+              assert.equal(A1A.subject, "Object of Objects");
+            });
 
-          it("should have a description", () => {
-            assert.equal(A1A.description, "It's dark down here.");
+            it("should have a description", () => {
+              assert.equal(A1A.description, "It's dark down here.");
+            });
           });
         });
       });
 
-      it("should have A2 content", () => {
-        assert.equal(typeof A.A2.content, "string");
+      describe("A2", function() {
+        it("should have content", () => {
+          assert.equal(typeof A.A2.content, "string");
+        });
       });
     });
 
