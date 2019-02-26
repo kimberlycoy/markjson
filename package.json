@@ -4,7 +4,7 @@
   "description": "Markdown to JSON",
   "main": "lib/markjson.js",
   "bin": {
-    "markjson": "bin/markjson.js"
+    "markjson": "bin/markjson-cli.js"
   },
   "repository": "git@github.com:kimberlycoy/markjson.git",
   "author": "Kimberly Coy <kimberlycoy@mybluetub.com>",
