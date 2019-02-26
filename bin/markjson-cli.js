@@ -30,11 +30,12 @@ function formatJson({ json, argv }) {
   return JSON.stringify(json, null, argv.format);
 }
 
-function outputJson({ json, argv, filename }) {
+function writeJson({ json, argv, filename }) {
   if (argv.output) {
     try {
-      let f = __dirname + "/" + path.basename(filename) + ".json";
+      let f = process.cwd() + "/" + path.basename(filename) + ".json";
       fs.writeFileSync(f, json);
+      console.info("created", f);
     } catch (e) {
       console.error(e.message);
     }
@@ -44,6 +45,7 @@ function outputJson({ json, argv, filename }) {
 }
 
 function parse(argv) {
+  console.log("argv:", argv);
   let all = {};
   argv._.forEach(function(filename) {
     try {
@@ -52,7 +54,7 @@ function parse(argv) {
         Object.assign(all, json);
       } else {
         json = formatJson({ json: json, argv: argv });
-        outputJson({ json: json, argv: argv, filename: filename });
+        writeJson({ json: json, argv: argv, filename: filename });
       }
     } catch (e) {
       console.error(e.message);
@@ -61,7 +63,7 @@ function parse(argv) {
 
   if (argv.concat) {
     all = formatJson({ json: all, argv: argv });
-    outputJson({ json: all, argv: argv, filename: "output" });
+    writeJson({ json: all, argv: argv, filename: "output.md" });
   }
 }
 
@@ -69,14 +71,14 @@ function main(args) {
   let argv = parseInput(args);
 
   if (argv._.length === 0 || argv.help) {
-    console.log(`
+    console.info(`
 markjson [file.md...]
 
 --help, -h       This message.
 --format, -f     Format the json. Defaults to 2 spaces.
 --concat, -c     Concat the json of each file into one object. 
 --output, -o     Write the json to [filename.md].json. Or, 
-                 output.json if multiple markdown files.
+                 output.md.json if multiple markdown files.
     `);
   } else {
     parse(argv);
